@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="Xolmurodov M.">
+<title>Mindscape</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--p:#6c3df4;--o:#ff9f1c;--g:#19c3a8;--r:#ff4f8b;--y:#ffd93d;--ink:#2d1b69}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;user-select:none}
+body{font-family:'Baloo 2','Comic Sans MS',sans-serif;min-height:100vh;color:var(--ink);background:linear-gradient(135deg,#9fe3ff,#d6c4ff,#ffd0e6,#fff1a8);background-size:400% 400%;animation:bg 18s ease infinite;overflow-x:hidden}
+@keyframes bg{50%{background-position:100% 100%}}
+.fl{position:fixed;opacity:.55;animation:fl linear infinite;pointer-events:none;z-index:0}
+@keyframes fl{from{transform:translateY(115vh) rotate(0)}to{transform:translateY(-20vh) rotate(360deg)}}
+.top{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;z-index:5}
+.pill{background:#fff;border-radius:40px;padding:4px 18px;font:800 1.4rem inherit;font-family:inherit;color:var(--ink);box-shadow:0 5px 0 #0002;border:0;cursor:pointer;transition:transform .15s}
+.pill:active{transform:translateY(4px);box-shadow:0 1px 0 #0002}
+main{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:76px 16px 70px;text-align:center}
+.scr{display:none;width:100%;max-width:960px;flex-direction:column;align-items:center;gap:20px}
+.scr.on{display:flex;animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(.7);opacity:0}}
+h1{font-size:clamp(3.4rem,13vw,7.5rem);line-height:1;font-weight:800;letter-spacing:-2px;background:linear-gradient(90deg,var(--p),var(--r),var(--o),var(--g));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 5px 0 #fff)}
+h2{font-size:clamp(1.6rem,5vw,2.6rem)}
+.sub{font-size:1.4rem;opacity:.8}
+.logo{font-size:5rem;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-14px) rotate(6deg)}}
+.row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.card{width:min(280px,42vw);min-height:230px;border:0;border-radius:36px;padding:18px;color:#fff;font:800 1.6rem 'Baloo 2','Comic Sans MS',sans-serif;cursor:pointer;box-shadow:0 10px 0 #0003;transition:transform .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.card:hover{transform:translateY(-8px) rotate(-2deg)}
+.card:active{transform:translateY(6px);box-shadow:0 3px 0 #0003}
+.card i{font-style:normal;font-size:5.2rem;line-height:1}
+.card small{font-size:1rem;font-weight:600;opacity:.95}
+.c1{background:linear-gradient(160deg,#ff7eb3,#ff4f8b)}.c2{background:linear-gradient(160deg,#ffcb52,#ff9f1c)}.c3{background:linear-gradient(160deg,#5ee7c9,#19a8c3)}.c4{background:linear-gradient(160deg,#9a7dff,#6c3df4)}
+.go{font-size:2.2rem;padding:10px 46px;background:linear-gradient(180deg,#ffd93d,#ff9f1c);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.panel{background:#ffffffd9;border-radius:40px;padding:22px;width:100%;box-shadow:0 10px 0 #0002;display:flex;flex-direction:column;align-items:center;gap:18px}
+.big{font-size:clamp(5rem,20vw,9rem);line-height:1.1;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.big .pill{font-size:2rem}
+.tile,.opt{min-width:84px;height:84px;padding:0 18px;border:0;border-radius:24px;background:var(--y);font:800 2.6rem 'Baloo 2','Comic Sans MS',sans-serif;color:var(--ink);box-shadow:0 6px 0 #0003;cursor:pointer;transition:transform .15s}
+.tile:active,.opt:active{transform:translateY(5px);box-shadow:0 1px 0 #0003}
+.opt.sel{background:var(--g);color:#fff;transform:scale(1.12)}
+.slot{min-width:84px;height:84px;border:5px dashed var(--p);border-radius:24px;background:#fff;font:800 2.6rem 'Baloo 2',sans-serif;display:flex;align-items:center;justify-content:center;padding:0 12px}
+.sh{animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-12px)}75%{transform:translateX(12px)}}
+.story{font-size:1.7rem;line-height:1.4;max-width:720px}
+.lbl{font-size:2.6rem}
+.mas{position:fixed;left:10px;bottom:34px;z-index:5;display:flex;align-items:flex-end;gap:6px;pointer-events:none}
+.mas b{font-size:4rem;animation:bob 2.5s infinite}
+.mas span{background:#fff;border-radius:22px;padding:6px 16px;font-size:1.3rem;box-shadow:0 4px 0 #0002;opacity:0;transition:.3s}
+.mas span.on{opacity:1}
+.cf{position:fixed;top:-40px;font-size:2rem;z-index:9;pointer-events:none;animation:cf 1.8s ease-in forwards}
+@keyframes cf{to{transform:translateY(110vh) rotate(540deg)}}
+footer{position:fixed;bottom:6px;left:0;right:0;text-align:center;font-size:.95rem;z-index:5;pointer-events:none}
+footer .h{position:fixed;right:6px;bottom:3px;font-size:8px;opacity:.07}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+@media(max-width:560px){.mas b{font-size:2.8rem}.tile,.opt,.slot{min-width:68px;height:68px;font-size:2rem}}
+</style>
+</head>
+<body>
+<div class="top">
+  <button class="pill" id="back" onclick="back()" style="visibility:hidden">⬅️</button>
+  <span class="pill">⭐ <span id="st">0</span></span>
+  <button class="pill" id="mus" onclick="toggleMusic()">🎵</button>
+</div>
+
+<main>
+  <section class="scr on" id="home">
+    <div class="logo">🦉</div>
+    <h1>Mindscape</h1>
+    <p class="sub">Aql va tasavvur olami ✨</p>
+    <button class="card go" onclick="start()">▶️ Boshlash</button>
+  </section>
+
+  <section class="scr" id="mode">
+    <h2>Nima qilamiz? 🤔</h2>
+    <div class="row">
+      <button class="card c4" onclick="setMode('mashq')"><i>📚</i>Mashq<small>Maktab darsligidan</small></button>
+      <button class="card c2" onclick="setMode('oyin')"><i>🎮</i>O'yin<small>Qiziqarli o'yinlar</small></button>
+    </div>
+  </section>
+
+  <section class="scr" id="mods">
+    <h2 id="mt"></h2>
+    <div class="row">
+      <button class="card c1" onclick="run('story')"><i>🪄</i>Sehrli hikoya<small id="d1"></small></button>
+      <button class="card c3" onclick="run('word')"><i>🔤</i>So'z zanjiri<small id="d2"></small></button>
+      <button class="card c4" onclick="run('vis')"><i>🧩</i>Vizual mantiq<small id="d3"></small></button>
+    </div>
+  </section>
+
+  <section class="scr" id="play"><div class="panel" id="pp"></div></section>
+</main>
+
+<div class="mas"><b>🦉</b><span id="say"></span></div>
+<footer>Yaratuvchi: Fahriddinova Sabina Azizova 💜<span class="h">Xolmurodov M.</span></footer>
+
+<!-- Fon musiqasi: audio/music.mp3 faylini shu papkaga qo'ying -->
+<audio id="bgm" src="audio/music.mp3" loop preload="auto"></audio>
+
+<script>
+const $=s=>document.querySelector(s),pick=a=>a[Math.random()*a.length|0],shuf=a=>[...a].sort(()=>Math.random()-.5);
+let mode='',stars=0,cur='home',ac,musicOn=true;
+
+/* ---------- Tovush ---------- */
+function snd(t){try{ac=ac||new AudioContext();const n={ok:[523,659,784,1047],no:[220,170],tap:[660]}[t];n.forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain(),s=ac.currentTime+i*.11;o.frequency.value=f;o.type=t=='no'?'sawtooth':'triangle';o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.15,s);g.gain.exponentialRampToValueAtTime(.001,s+.25);o.start(s);o.stop(s+.3)})}catch(e){}}
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='uz-UZ';u.rate=.8;speechSynthesis.speak(u)}catch(e){}}
+function toggleMusic(){const a=$('#bgm');musicOn=!musicOn;musicOn?a.play().catch(()=>{}):a.pause();$('#mus').textContent=musicOn?'🎵':'🔇'}
+document.addEventListener('click',e=>{if(e.target.closest('button'))snd('tap')},true);
+
+/* ---------- Fon ---------- */
+['☁️','⭐','🎈','🦋','🌈','🌸','🎨','✏️','🚀','🍭','🌟','🐝'].forEach((e,i)=>{const d=document.createElement('div');d.className='fl';d.textContent=e;d.style.cssText=`left:${i*8.5}%;font-size:${1.6+Math.random()*2}rem;animation-duration:${14+Math.random()*16}s;animation-delay:-${Math.random()*20}s`;document.body.prepend(d)});
+
+/* ---------- Navigatsiya ---------- */
+function go(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));$('#'+id).classList.add('on');cur=id;$('#back').style.visibility=id=='home'?'hidden':'visible'}
+function back(){speechSynthesis.cancel();go(cur=='play'?'mods':cur=='mods'?'mode':'home')}
+function start(){if(musicOn){const a=$('#bgm');a.volume=.35;a.play().catch(()=>{})}mascot("Salom! Men Boyqushman!");go('mode')}
+function setMode(m){mode=m;$('#mt').textContent=m=='mashq'?'📚 Mashq':'🎮 O\'yin';
+  const d=m=='mashq'?['Birinchi harfni top','Bo\'g\'inlarni terib so\'z yasa','Nechta? Sanab ko\'r']:['Ertak yarat!','Harflardan so\'z yoz','Rasmlarni tartib bilan qo\'y'];
+  d.forEach((t,i)=>$('#d'+(i+1)).textContent=t);go('mods')}
+function run(m){go('play');({story:mode=='mashq'?quiz:storyGame,word:()=>wordGame(),vis:mode=='mashq'?count:seq})[m]()}
+function mascot(t){const s=$('#say');s.textContent=t;s.classList.add('on');clearTimeout(s.t);s.t=setTimeout(()=>s.classList.remove('on'),2600)}
+function win(){stars++;$('#st').textContent=stars;snd('ok');mascot(pick(["Barakalla!","Zo'r!","Ofarin!","Dahshat!","Juda yaxshi!"]));for(let i=0;i<28;i++){const c=document.createElement('div');c.className='cf';c.textContent=pick(['⭐','🎉','🎈','✨','💜','🌟']);c.style.left=Math.random()*100+'%';c.style.animationDelay=Math.random()*.5+'s';document.body.append(c);setTimeout(()=>c.remove(),2600)}}
+function no(el){snd('no');mascot("Yana urinib ko'r!");el.classList.add('sh');setTimeout(()=>el.classList.remove('sh'),400)}
+
+/* ---------- Ma'lumotlar ---------- */
+const AL="abdefghijklmnopqrstuvxyz".split('');
+const decks={},draw=(k,a)=>{if(!decks[k]||!decks[k].length)decks[k]=shuf(a);return decks[k].pop()};
+const W="olma|🍎|ol-ma;mushuk|🐱|mu-shuk;baliq|🐟|ba-liq;kitob|📖|ki-tob;qalam|✏️|qa-lam;quyosh|☀️|qu-yosh;tarvuz|🍉|tar-vuz;uzum|🍇|u-zum;daraxt|🌳|da-raxt;mashina|🚗|ma-shi-na;gul|🌸|gul;non|🍞|non;uy|🏠|uy;it|🐶|it;sichqon|🐭|sich-qon;tovuq|🐔|to-vuq;ot|🐴|ot;sigir|🐄|si-gir;qo'y|🐑|qo'y;echki|🐐|ech-ki;tuya|🐪|tu-ya;fil|🐘|fil;sher|🦁|sher;ayiq|🐻|a-yiq;quyon|🐰|qu-yon;tulki|🦊|tul-ki;bo'ri|🐺|bo'-ri;maymun|🐵|may-mun;qurbaqa|🐸|qur-ba-qa;ilon|🐍|i-lon;kapalak|🦋|ka-pa-lak;asalari|🐝|a-sa-la-ri;chumoli|🐜|chu-mo-li;o'rdak|🦆|o'r-dak;burgut|🦅|bur-gut;qush|🐦|qush;delfin|🐬|del-fin;toshbaqa|🐢|tosh-ba-qa;banan|🍌|ba-nan;limon|🍋|li-mon;shaftoli|🍑|shaf-to-li;nok|🍐|nok;qulupnay|🍓|qu-lup-nay;sabzi|🥕|sab-zi;pomidor|🍅|po-mi-dor;bodring|🥒|bod-ring;kartoshka|🥔|kar-tosh-ka;qovun|🍈|qo-vun;soat|⏰|so-at;kalit|🔑|ka-lit;to'p|⚽|to'p;shar|🎈|shar;sovg'a|🎁|sov-g'a;qalpoq|🧢|qal-poq;poyezd|🚂|po-yezd;samolyot|✈️|sa-mo-lyot;kema|🚢|ke-ma;avtobus|🚌|av-to-bus;yulduz|⭐|yul-duz;oy|🌙|oy;bulut|☁️|bu-lut;yomg'ir|🌧️|yom-g'ir;qor|❄️|qor;olov|🔥|o-lov;suv|💧|suv;archa|🎄|ar-cha;bayroq|🚩|bay-roq;tish|🦷|tish;yurak|❤️|yu-rak;tuxum|🥚|tu-xum;sut|🥛|sut;pishloq|🧀|pish-loq;shokolad|🍫|sho-ko-lad;muzqaymoq|🍦|muz-qay-moq;tort|🎂|tort;piyoz|🧅|pi-yoz;qo'ziqorin|🍄|qo'-zi-qo-rin".split(';').map(x=>{const[a,b,c]=x.split('|');return[a,b,c.split('-')]});
+const letters=w=>w.match(/sh|ch|g'|o'|./g),WL=W.filter(x=>letters(x[0]).length<=7);
+const SEQ="🌰 🌱 🌳 🍎|🥚 🐣 🐥 🐔|☁️ 🌧️ 🌈|🌅 ☀️ 🌇 🌙|🥚 🐛 🦋|🧒 👦 👨 👴|🐜 🐱 🐘|🐭 🐕 🐎 🐘|🌑 🌓 🌕|🌷 🌻 🌳|🚶 🚲 🚗 ✈️|☀️ 🌤️ ⛅ 🌧️|🏠 🏢 🏙️|1️⃣ 2️⃣ 3️⃣ 4️⃣|5️⃣ 6️⃣ 7️⃣ 8️⃣|🔴 🟠 🟡 🟢|🥚 🍳 🍽️|🌱 🌿 🌻|🧒 🎒 🏫|😴 ⏰ 🪥 🍳|🧼 💦 🧻|🐟 🐬 🐋|🍎 🍏 🍐 🍊|🌾 🍞 🧈".split('|').map(x=>x.split(' '));
+const H=[['🐰','Quyoncha'],['🐻','Ayiqcha'],['🦊','Tulkivoy'],['🐉','Ajdarcha'],['🐱','Mushukvoy'],['🐘','Filcha'],['🦁','Sherbek'],['🧚','Parizod']],
+L=[['🌲',"sehrli o'rmonda"],['🏰',"go'zal qasrda"],['🌊',"chuqur dengizda"],['🚀',"yulduzli kosmosda"],['🌴',"yashil orolda"],['⛰️',"baland tog'da"],['🎪',"sirli sirkda"],['🌈',"kamalak ustida"]],
+I=[['🪄',"sehrli tayoqchani"],['🗝️',"oltin kalitni"],['🍯',"shirin asalni"],['⭐',"yorqin yulduzni"],['🎈',"rangli sharni"],['🥚',"oltin tuxumni"],['📖',"sehrli kitobni"],['👑',"yaltiroq tojni"]];
+
+/* ---------- 1. Hikoya ---------- */
+function storyGame(){
+  const sel=[null,null,null],sets=[['🧒',H],['📍',L],['🎁',I]];
+  const P=$('#pp');P.innerHTML='<h2>Tanla va ertak yarat!</h2>';
+  sets.forEach(([ic,arr],r)=>{const d=document.createElement('div');d.className='row';d.innerHTML=`<span class="lbl">${ic}</span>`;
+    arr.forEach((o,i)=>{const b=document.createElement('button');b.className='opt';b.textContent=o[0];b.onclick=()=>{sel[r]=i;[...d.querySelectorAll('.opt')].forEach(x=>x.classList.remove('sel'));b.classList.add('sel')};d.append(b)});P.append(d)});
+  const g=document.createElement('button');g.className='card c1 go';g.style.cssText='min-height:0;font-size:1.8rem;padding:8px 36px';g.textContent='✨ Sehrli ertak!';
+  g.onclick=()=>{const h=H[sel[0]??Math.random()*8|0],l=L[sel[1]??Math.random()*8|0],i=I[sel[2]??Math.random()*8|0],n=h[1],p=l[1],o=i[1];
+    const t=pick([`Bir bor ekan, bir yo'q ekan. ${n} ${p} yashar ekan. Bir kuni u ${o} topibdi. Shunda hamma xursand bo'libdi, ${n} esa yangi do'stlar orttibdi. Ertak shu yerda tugadi!`,
+      `${n} ${p} sayr qilib yurgan ekan. To'satdan ${o} ko'ribdi. ${n} uni olibdi-yu, yuragi quvonchga to'libdi. Ertak tugadi, ${n} baxtli ekan!`,
+      `Bir kuni ${n} ${p} o'ynayotgan ekan. U ${o} topibdi va do'stlariga ko'rsatibdi. Hamma qarsak chalibdi, ${n} esa kulib yuboribdi!`]);
+    P.innerHTML=`<div class="big">${h[0]}${l[0]}${i[0]}</div><p class="story">${t}</p><div class="row"><button class="pill" id="rd">🔊 Eshit</button><button class="pill" id="nw">🔁 Yangi ertak</button></div>`;
+    $('#rd').onclick=()=>say(t);$('#nw').onclick=storyGame;say(t);win()};
+  P.append(g)}
+function quiz(){
+  if(Math.random()<.4)return hear();
+  const [w,e]=draw('q',W),f=letters(w)[0],o=new Set([f]);while(o.size<3)o.add(pick(AL));
+  $('#pp').innerHTML=`<h2>Birinchi harfi qaysi?</h2><div class="big">${e}<button class="pill" onclick="say('${w}')">🔊</button></div><div class="row" id="o"></div>`;
+  shuf([...o]).forEach(x=>{const b=document.createElement('button');b.className='opt';b.textContent=x.toUpperCase();b.onclick=()=>{if(x==f){b.classList.add('sel');win();say(w);setTimeout(quiz,1800)}else no(b)};$('#o').append(b)})}
+function hear(){
+  const t=draw('h',W),o=[t];while(o.length<3){const x=pick(W);if(!o.includes(x))o.push(x)}
+  $('#pp').innerHTML=`<h2>Eshit va rasmni top!</h2><div class="big"><button class="pill" id="sp">🔊</button></div><div class="row" id="o"></div>`;
+  $('#sp').onclick=()=>say(t[0]);setTimeout(()=>say(t[0]),500);
+  shuf(o).forEach(x=>{const b=document.createElement('button');b.className='opt';b.style.fontSize='3.4rem';b.textContent=x[1];b.onclick=()=>{if(x==t){b.classList.add('sel');win();setTimeout(quiz,1800)}else no(b)};$('#o').append(b)})}
+
+/* ---------- 2. So'z zanjiri ---------- */
+function build(head,parts,next,word){
+  $('#pp').innerHTML=`<div class="big">${head}</div><div class="row" id="sl"></div><div class="row" id="tl"></div>`;
+  parts.forEach(()=>$('#sl').insertAdjacentHTML('beforeend','<div class="slot"></div>'));let pos=0;
+  shuf(parts).forEach(t=>{const b=document.createElement('button');b.className='tile';b.textContent=t;
+    b.onclick=()=>{if(b.disabled)return;
+      if(t==parts[pos]){$('#sl').children[pos].textContent=t;b.disabled=true;b.style.opacity=.25;pos++;
+        if(pos==parts.length){win();if(word)say(word);setTimeout(next,2000)}}else no(b)};$('#tl').append(b)})}
+function wordGame(){
+  const [w,e,s]=draw('w'+mode,mode=='mashq'?W:WL);
+  build(`${e}<button class="pill" onclick="say('${w}')">🔊</button>`,mode=='mashq'?s:letters(w),wordGame,w)}
+
+/* ---------- 3. Vizual mantiq ---------- */
+const EM=['🍎','⭐','🐟','🎈','🐥','🌸','🚗','🍓','🐞','🍪'],VQ=[];
+EM.forEach(e=>{for(let n=1;n<=10;n++)VQ.push(['c',e,n,n])});
+for(let a=1;a<=9;a++)for(let b=1;b<=9;b++){if(a+b<=10)VQ.push(['p',a,b,a+b]);if(b<=a)VQ.push(['m',a,b,a-b])}
+function opts(ans,h,next,min=0,max=10){
+  const o=new Set([ans]);while(o.size<3)o.add(min+Math.random()*(max-min+1)|0);
+  $('#pp').innerHTML=h+'<div class="row" id="o"></div>';
+  shuf([...o]).forEach(x=>{const b=document.createElement('button');b.className='opt';b.textContent=x;b.onclick=()=>{if(x==ans){b.classList.add('sel');win();setTimeout(next,1800)}else no(b)};$('#o').append(b)})}
+function count(){
+  const [t,a,b,ans]=draw('v',VQ),e=pick(EM);
+  const h=t=='c'?`<h2>Nechta?</h2><div class="big" style="font-size:3.6rem">${a.repeat(b)}</div>`
+   :`<h2>${t=='p'?"Qo'sh!":'Ayir!'}</h2><div class="big" style="font-size:2.4rem">${e.repeat(a)}</div><div class="big" style="font-size:3rem">${a} ${t=='p'?'+':'−'} ${b} = ❓</div>`;
+  opts(ans,h,count,t=='c'?1:0,10)}
+function seq(){
+  if(Math.random()<.35)return pattern();
+  build('👆 Tartib bilan bos!',draw('s',SEQ),seq)}
+function pattern(){
+  const pool=shuf(['🔴','🔵','🟢','🟡','🍎','🍌','🐱','🐶','⭐','🌙','🚗','🎈','🐟','🌸']).slice(0,4),
+    u=pick([[0,1],[0,0,1],[0,1,2],[0,1,1],[0,1,2,3]]).map(i=>pool[i]),s=[];
+  for(let i=0;i<u.length*2+1;i++)s.push(u[i%u.length]);const ans=s.pop();
+  const o=new Set([ans]);while(o.size<3)o.add(pick(pool.length>2?pool:['🔴','🔵','🟢']));
+  $('#pp').innerHTML=`<h2>Keyingisi qaysi?</h2><div class="big" style="font-size:3.4rem">${s.join(' ')} ❓</div><div class="row" id="o"></div>`;
+  shuf([...o]).forEach(x=>{const b=document.createElement('button');b.className='opt';b.style.fontSize='3.4rem';b.textContent=x;b.onclick=()=>{if(x==ans){b.classList.add('sel');win();setTimeout(seq,1800)}else no(b)};$('#o').append(b)})}
+</script>
+</body>
+</html>
